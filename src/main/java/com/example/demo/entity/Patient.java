@@ -23,7 +23,7 @@ public class Patient {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID patientId;
 
     @Column(name = "first_name", nullable = false, length = 50)
@@ -33,7 +33,7 @@ public class Patient {
     private String lastName;
 
     @Column(name = "date_of_birth", nullable = false)
-    @JsonFormat(pattern = "mm-dd-yyyy")
+    @JsonFormat(pattern = "MM-dd-yyyy")
     private LocalDate dateOfBirth;
 
     @Column(name = "gender", nullable = false)
@@ -51,4 +51,14 @@ public class Patient {
 
     @Column(name = "medical_info")
     private String medicalInfo;
+
+    public Patient(String firstName, String lastName, Gender gender, String username, String password, String contactInfo, String medicalInfo) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.username = username;
+        this.password = password;
+        this.contactInfo = contactInfo;
+        this.medicalInfo = medicalInfo;
+    }
 }
