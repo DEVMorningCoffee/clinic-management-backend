@@ -16,6 +16,12 @@ public class PatientValidate {
     private static final String NAME_REGEX = "^[a-zA-Z'-]+$";
     private static final String USERNAME_REGEX = "^[a-zA-Z0-9_]+$";
     private static final String PASSWORD_REGEX = "^[a-zA-Z0-9_]+$";
+    private final PatientRepository patientRepository;
+
+    @Autowired
+    public PatientValidate(PatientRepository patientRepository) {
+        this.patientRepository = patientRepository;
+    }
 
     public void validatePatient(@NotNull Patient patient) {
         validateDOB(patient.getDateOfBirth());
@@ -42,6 +48,9 @@ public class PatientValidate {
     }
 
     public void validateUsername(@NotNull String username) {
+        if(patientRepository.findByUsername(username).isPresent()){
+            throw new DuplicatePatientException("Username is already in use");
+        }
         if(!username.matches(USERNAME_REGEX)){
             throw new InvalidInputException("Username must contain only letters, numbers and underscores");
         }

@@ -13,17 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/api/patients")
+@RequestMapping("/api/patient")
 public class PatientController {
     private final PatientService patientService;
 
     @Autowired
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
-
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create")
     public ResponseEntity<?> createPatient(@Validated @RequestBody Patient patient) {
         Patient newPatient = patientService.registerPatient(patient);
         PatientDTO patientDTO = new PatientDTO(newPatient.getUsername(), newPatient.getFirstName(), newPatient.getLastName());

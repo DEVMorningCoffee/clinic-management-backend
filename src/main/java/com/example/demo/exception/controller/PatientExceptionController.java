@@ -31,7 +31,7 @@ public class PatientExceptionController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception e) {
-        ErrorResponse errorResponse = new ErrorResponse("InternalError", "An unexpected error occurred");
+        ErrorResponse errorResponse = new ErrorResponse("Internal Error", "An unexpected error occurred");
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
