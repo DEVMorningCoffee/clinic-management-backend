@@ -1,4 +1,4 @@
-package com.example.demo.exception.controller;
+package com.example.demo.exception;
 
 import java.io.Serial;
 
