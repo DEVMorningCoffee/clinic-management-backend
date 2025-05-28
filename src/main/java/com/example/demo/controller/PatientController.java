@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.PatientDTO;
 import com.example.demo.entity.Patient;
 import com.example.demo.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +19,20 @@ public class PatientController {
     @Autowired
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
+
     }
 
     @PostMapping("/create")
     public ResponseEntity<?> createPatient(@RequestBody Patient patient) {
-        try{
+        try {
             Patient newPatient = patientService.registerPatient(patient);
-            return new ResponseEntity<>(newPatient, HttpStatus.CREATED);
+            PatientDTO patientDTO = new PatientDTO(newPatient.getUsername(), newPatient.getFirstName(), newPatient.getLastName());
+
+            return new ResponseEntity<>(patientDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
 
 }
