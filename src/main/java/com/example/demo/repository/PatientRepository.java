@@ -11,6 +11,6 @@ import java.util.UUID;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, UUID> {
-    @Query("SELECT P FROM patient P WHERE patient.username = :username")
+    @Query("SELECT p FROM patient p WHERE p.username = :username")
     Optional<Patient> findByUsername(@Param("username") String username);
 }
