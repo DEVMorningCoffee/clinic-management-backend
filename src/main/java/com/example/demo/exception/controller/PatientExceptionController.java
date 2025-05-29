@@ -1,9 +1,6 @@
 package com.example.demo.exception.controller;
 
-import com.example.demo.exception.DuplicatePatientException;
-import com.example.demo.exception.ErrorResponse;
-import com.example.demo.exception.InvalidInputException;
-import com.example.demo.exception.MissingFieldException;
+import com.example.demo.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,6 +29,12 @@ public class PatientExceptionController {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception e) {
         ErrorResponse errorResponse = new ErrorResponse("Internal Error", "An unexpected error occurred");
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InternalErrorException.class)
+    public ResponseEntity<ErrorResponse> handleInternalErrorException(InternalErrorException e) {
+        ErrorResponse errorResponse = new ErrorResponse("Internal Error", e.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

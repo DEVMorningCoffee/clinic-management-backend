@@ -53,12 +53,26 @@ public class Patient {
     private String medicalInfo;
 
     public Patient(String firstName, String lastName, Gender gender, String username, String password, String contactInfo, String medicalInfo) {
+        // Use to create patient
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.username = username;
         this.password = password;
         this.contactInfo = contactInfo;
+        this.medicalInfo = medicalInfo;
+    }
+
+    public Patient(String username, String firstName, String lastName){
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Patient(String username, String firstName, String lastName, String medicalInfo){
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.medicalInfo = medicalInfo;
     }
 }

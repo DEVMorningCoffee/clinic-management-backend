@@ -3,7 +3,6 @@ package com.example.demo.validate;
 import com.example.demo.entity.Patient;
 import com.example.demo.exception.DuplicatePatientException;
 import com.example.demo.exception.InvalidInputException;
-import com.example.demo.exception.MissingFieldException;
 import com.example.demo.repository.PatientRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +55,12 @@ public class PatientValidate {
         }
     }
 
+    public void validateUsernameExists(@NotNull String username){
+        if(patientRepository.findByUsername(username).isEmpty()){
+            throw new InvalidInputException("No user found with this username");
+        }
+    }
+
     public void validatePassword(@NotNull String password){
         if(!password.matches(PASSWORD_REGEX)){
             throw new InvalidInputException("Password must contain only letters, numbers and underscores");
@@ -63,6 +68,12 @@ public class PatientValidate {
 
         if(password.length() < 8){
             throw new InvalidInputException("Password must be at least 8 characters");
+        }
+    }
+
+    public void validateMedicalInfo(@NotNull String medicalInfo) {
+        if(medicalInfo.isBlank()){
+            throw new InvalidInputException("Medical Info cannot be blank");
         }
     }
 }
