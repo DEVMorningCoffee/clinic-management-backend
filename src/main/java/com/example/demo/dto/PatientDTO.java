@@ -1,5 +1,18 @@
 package com.example.demo.dto;
 
-public record PatientDTO(String username, String firstName, String lastName) {
+
+import com.example.demo.entity.Patient;
+import lombok.Data;
+
+public record PatientDTO(Patient patient) {
+
+    public Patient createPatientDTO() {
+        return new Patient(this.patient.getUsername(), this.patient.getFirstName(), this.patient.getLastName());
+    }
+
+    public Patient updatePatientMedicalDTO() {
+        return new Patient(this.patient.getUsername(), this.patient.getFirstName(),
+                this.patient.getLastName(), this.patient.getMedicalInfo());
+    }
 
 }
