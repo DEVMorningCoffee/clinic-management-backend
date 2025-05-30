@@ -109,6 +109,26 @@ public class PatientService {
         return patientRepository.save(retrievePatient);
     }
 
+    public Patient updatePatient(Patient patient, UUID id) {
+        // Check if User exist
+        patientValidate.validatePatient(patient);
+
+        Patient retrievePatient = patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+
+        retrievePatient.setUsername(patient.getUsername());
+        retrievePatient.setPassword(patient.getPassword());
+        retrievePatient.setFirstName(patient.getFirstName());
+        retrievePatient.setLastName(patient.getLastName());
+        retrievePatient.setGender(patient.getGender());
+        retrievePatient.setMedicalInfo(patient.getMedicalInfo());
+        retrievePatient.setDateOfBirth(patient.getDateOfBirth());
+        retrievePatient.setContactInfo(patient.getContactInfo());
+
+        return patientRepository.save(retrievePatient);
+    }
+
+
+
     public Patient accessPatient(Patient patient) {
         patientValidate.validateUsernameExists(patient.getUsername());
         patientValidate.validatePassword(patient.getPassword());
