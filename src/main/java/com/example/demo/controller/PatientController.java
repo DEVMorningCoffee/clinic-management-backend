@@ -50,4 +50,18 @@ public class PatientController {
         return new ResponseEntity<>(PatientMapper.toDTO(updatePatient), HttpStatus.OK);
     }
 
+    @PatchMapping(value = "/name/first/{id}/update")
+    public ResponseEntity<?> updateFirstName(@Validated @RequestBody PatientDTO patient, @PathVariable UUID id) {
+        Patient updatePatient = patientService.updateFirstName(patient, id);
+
+        return new ResponseEntity<>(PatientMapper.toDTO(updatePatient), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "name/last/{id}/update")
+    public ResponseEntity<?> updateLastName(@Validated @RequestBody PatientDTO patient, @PathVariable UUID id) {
+        Patient updatePatient = patientService.updateLastName(patient, id);
+
+        return new ResponseEntity<>(PatientMapper.toDTO(updatePatient), HttpStatus.OK);
+    }
+
 }

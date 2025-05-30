@@ -40,6 +40,21 @@ public class PatientValidate {
         }
     }
 
+    public void validateFirstName(@NotNull String firstName) {
+        // Only allows for letters, dashes and apostrophes for names
+        if (!firstName.matches(NAME_REGEX)) {
+            throw new InvalidInputException("First name must contain only letters, apostrophes, or dashes and cannot be null");
+        }
+    }
+
+    public void validateLastName(@NotNull String lastName) {
+        // Only allows for letters, dashes and apostrophes for names
+        if (!lastName.matches(NAME_REGEX)) {
+            throw new InvalidInputException("First name must contain only letters, apostrophes, or dashes and cannot be null");
+        }
+    }
+
+
     public void validateDOB(LocalDate dob) {
         if(!LocalDate.now().isAfter(dob)){
             throw new InvalidInputException("Date of birth must be in the past");

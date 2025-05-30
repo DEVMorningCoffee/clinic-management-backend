@@ -50,6 +50,30 @@ public class PatientService {
         return patientRepository.save(retrievePatient);
     }
 
+    public Patient updateFirstName(PatientDTO patient, UUID id) {
+        // Check if User exist
+        patientValidate.validateUsernameExists(patient.getUsername());
+        patientValidate.validateFirstName(patient.getFirstName());
+
+        Patient retrievePatient = patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+
+        retrievePatient.setFirstName(patient.getFirstName());
+
+        return patientRepository.save(retrievePatient);
+    }
+
+    public Patient updateLastName(PatientDTO patient, UUID id) {
+        // Check if User exist
+        patientValidate.validateUsernameExists(patient.getUsername());
+        patientValidate.validateLastName(patient.getLastName());
+
+        Patient retrievePatient = patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+
+        retrievePatient.setLastName(patient.getLastName());
+
+        return patientRepository.save(retrievePatient);
+    }
+
     public Patient accessPatient(Patient patient) {
         patientValidate.validateUsernameExists(patient.getUsername());
         patientValidate.validatePassword(patient.getPassword());
