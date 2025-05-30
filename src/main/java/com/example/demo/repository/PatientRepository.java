@@ -15,10 +15,4 @@ import java.util.UUID;
 public interface PatientRepository extends JpaRepository<Patient, UUID> {
     @Query("SELECT p FROM patient p WHERE p.username = :username")
     Optional<Patient> findByUsername(@Param("username") String username);
-
-
-    @Transactional
-    @Modifying
-    @Query("UPDATE patient p SET p.medicalInfo = :medicalInfo WHERE p.username = :username")
-    int updatePatientMedicalInfo(@Param("medicalInfo") String medicalInfo, @Param("username") String username);
 }

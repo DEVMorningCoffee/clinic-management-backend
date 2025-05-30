@@ -52,4 +52,12 @@ public class Patient {
     @Column(name = "medical_info")
     private String medicalInfo;
 
+    public Patient(String username, String firstName, String lastName, String medicalInfo, LocalDate date, Patient.Gender gender) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.medicalInfo = medicalInfo;
+        this.dateOfBirth = date;
+        this.gender = gender;
+    }
 }

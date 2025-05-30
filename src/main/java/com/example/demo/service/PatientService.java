@@ -2,8 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.entity.Patient;
-import com.example.demo.exception.InternalErrorException;
-import com.example.demo.exception.InvalidInputException;
 import com.example.demo.repository.PatientRepository;
 import com.example.demo.validate.PatientValidate;
 import jakarta.persistence.EntityNotFoundException;
@@ -34,11 +32,20 @@ public class PatientService {
         // Check if User exist
         patientValidate.validateUsernameExists(patient.getUsername());
 
-        patientValidate.validateMedicalInfo(patient.getMedicalInfo());
-
         Patient retrievePatient = patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
 
         retrievePatient.setMedicalInfo(patient.getMedicalInfo());
+
+        return patientRepository.save(retrievePatient);
+    }
+
+    public Patient updateContactInfo(PatientDTO patient, UUID id) {
+        // Check if User exist
+        patientValidate.validateUsernameExists(patient.getUsername());
+
+        Patient retrievePatient = patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+
+        retrievePatient.setContactInfo(patient.getContactInfo());
 
         return patientRepository.save(retrievePatient);
     }
