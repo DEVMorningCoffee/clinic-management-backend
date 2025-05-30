@@ -1,18 +1,32 @@
 package com.example.demo.dto;
 
-
 import com.example.demo.entity.Patient;
 import lombok.Data;
 
-public record PatientDTO(Patient patient) {
+import java.time.LocalDate;
+import java.util.UUID;
 
-    public Patient createPatientDTO() {
-        return new Patient(this.patient.getUsername(), this.patient.getFirstName(), this.patient.getLastName());
+@Data
+public class PatientDTO {
+    private UUID patientId;
+    private String firstName;
+    private String lastName;
+    private String username;
+    private String medicalInfo;
+    private LocalDate dateOfBirth;
+    private Patient.Gender gender;
+
+    // Constructors
+    public PatientDTO() {}
+
+    public PatientDTO(UUID patientId, String firstName, String lastName, String username,
+                      String medicalInfo, LocalDate dateOfBirth, Patient.Gender gender) {
+        this.patientId = patientId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.medicalInfo = medicalInfo;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
     }
-
-    public Patient updatePatientMedicalDTO() {
-        return new Patient(this.patient.getUsername(), this.patient.getFirstName(),
-                this.patient.getLastName(), this.patient.getMedicalInfo());
-    }
-
 }

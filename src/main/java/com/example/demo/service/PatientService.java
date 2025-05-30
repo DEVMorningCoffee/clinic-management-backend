@@ -1,12 +1,17 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.PatientDTO;
 import com.example.demo.entity.Patient;
 import com.example.demo.exception.InternalErrorException;
 import com.example.demo.exception.InvalidInputException;
 import com.example.demo.repository.PatientRepository;
 import com.example.demo.validate.PatientValidate;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PatientService {
@@ -25,18 +30,16 @@ public class PatientService {
         return patientRepository.save(patient);
     }
 
-    public Patient updateMedicalInfo(Patient patient) {
+    public Patient updateMedicalInfo(PatientDTO patient, UUID id) {
         // Check if User exist
         patientValidate.validateUsernameExists(patient.getUsername());
 
         patientValidate.validateMedicalInfo(patient.getMedicalInfo());
 
-        int updateRow = patientRepository.updatePatientMedicalInfo(patient.getMedicalInfo(), patient.getUsername());
+        Patient retrievePatient = patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
 
-        if(updateRow == 0) {
-            throw new InternalErrorException("Something went wrong in our system");
-        }
+        retrievePatient.setMedicalInfo(patient.getMedicalInfo());
 
-        return patientRepository.findByUsername(patient.getUsername()).orElse(patient);
+        return patientRepository.save(retrievePatient);
     }
 }
