@@ -86,6 +86,12 @@ public class PatientValidate {
         }
     }
 
+//    public void validateGender(@NotNull Patient.Gender gender) {
+//        if(gender != Patient.Gender.MALE || gender != Patient.Gender.FEMALE || gender != Patient.Gender.OTHER){
+//            throw new InvalidInputException("Please enter a valid gender");
+//        }
+//    }
+
     public void validateMedicalInfo(@NotNull String medicalInfo) {
         if(medicalInfo.isBlank()){
             throw new InvalidInputException("Medical Info cannot be blank");

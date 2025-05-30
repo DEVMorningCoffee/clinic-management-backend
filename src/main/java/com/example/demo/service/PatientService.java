@@ -86,6 +86,17 @@ public class PatientService {
         return patientRepository.save(retrievePatient);
     }
 
+    public Patient updateGender(PatientDTO patient, UUID id) {
+        // Check if User exist
+        patientValidate.validateUsernameExists(patient.getUsername());
+
+        Patient retrievePatient = patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+
+        retrievePatient.setGender(patient.getGender());
+
+        return patientRepository.save(retrievePatient);
+    }
+
     public Patient accessPatient(Patient patient) {
         patientValidate.validateUsernameExists(patient.getUsername());
         patientValidate.validatePassword(patient.getPassword());
