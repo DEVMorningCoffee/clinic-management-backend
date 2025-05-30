@@ -29,6 +29,13 @@ public class PatientController {
         return new ResponseEntity<>(PatientMapper.toDTO(newPatient), HttpStatus.CREATED);
     }
 
+    @PostMapping(value="/login")
+    public ResponseEntity<?> loginPatient(@Validated @RequestBody Patient patient) {
+        Patient retrievePatient = patientService.accessPatient(patient);
+
+        return new ResponseEntity<>(PatientMapper.toDTO(retrievePatient), HttpStatus.OK);
+    }
+
     @PatchMapping(value = "/medical/{id}/update")
     public ResponseEntity<?> updateMedicalInfo(@Validated @RequestBody PatientDTO patient, @PathVariable UUID id) {
         Patient updatedPatient = patientService.updateMedicalInfo(patient, id);

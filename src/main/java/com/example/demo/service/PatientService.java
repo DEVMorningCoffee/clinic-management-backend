@@ -49,4 +49,12 @@ public class PatientService {
 
         return patientRepository.save(retrievePatient);
     }
+
+    public Patient accessPatient(Patient patient) {
+        patientValidate.validateUsernameExists(patient.getUsername());
+        patientValidate.validatePassword(patient.getPassword());
+
+        return patientRepository.findByUsernameAndPassword(patient.getUsername(), patient.getPassword())
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+    }
 }
