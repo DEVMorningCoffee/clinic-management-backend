@@ -74,6 +74,18 @@ public class PatientService {
         return patientRepository.save(retrievePatient);
     }
 
+    public Patient updateDateOfBirth(PatientDTO patient, UUID id) {
+        // Check if User exist
+        patientValidate.validateUsernameExists(patient.getUsername());
+        patientValidate.validateDOB(patient.getDateOfBirth());
+
+        Patient retrievePatient = patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+
+        retrievePatient.setDateOfBirth(patient.getDateOfBirth());
+
+        return patientRepository.save(retrievePatient);
+    }
+
     public Patient accessPatient(Patient patient) {
         patientValidate.validateUsernameExists(patient.getUsername());
         patientValidate.validatePassword(patient.getPassword());
@@ -81,4 +93,6 @@ public class PatientService {
         return patientRepository.findByUsernameAndPassword(patient.getUsername(), patient.getPassword())
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
     }
+
+
 }

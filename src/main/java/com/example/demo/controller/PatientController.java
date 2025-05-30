@@ -64,4 +64,13 @@ public class PatientController {
         return new ResponseEntity<>(PatientMapper.toDTO(updatePatient), HttpStatus.OK);
     }
 
+    @PatchMapping(value = "dob/{id}/update")
+    public ResponseEntity<?> updateDateOfBirth(@Validated @RequestBody PatientDTO patient, @PathVariable UUID id) {
+        Patient updatePatient = patientService.updateDateOfBirth(patient, id);
+
+        return new ResponseEntity<>(PatientMapper.toDTO(updatePatient), HttpStatus.OK);
+    }
+
+
+
 }
